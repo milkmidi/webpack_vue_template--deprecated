@@ -1,0 +1,23 @@
+.FB_1200x628 {
+    display: block;  
+    background-position: 0px 0px;
+    width: 1200px;
+    height: 628px;
+}
+
+.result_fb_share_btn {
+    display: block;  
+    background-position: 0px -632px;
+    width: 360px;
+    height: 57px;
+}
+    .result_fb_share_btn:hover {   background-position:0px -575px;   }
+
+.right_arrow_btn {
+    display: block;  
+    background-position: -364px -632px;
+    width: 32px;
+    height: 51px;
+}
+    .right_arrow_btn:hover {   background-position:-364px -581px;   }
+

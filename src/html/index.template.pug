@@ -1,0 +1,35 @@
+- var devMode = self.htmlWebpackPlugin.options.data.DEV_MODE
+- function date_now_format() { var date = new Date(); return date.getFullYear() + "_" + ( date.getMonth() + 1 ) + "_" + date.getDate() + "_" + date.getHours() + "_" + date.getMinutes() + "_" + date.getSeconds();     }
+- var time = date_now_format();
+- var title = "title";
+- var description = "description"
+- var image = "asset/img/fb.jpg"
+- var metaURL = "http://www.beautydiary.com.tw/2017event02/";
+- var min = devMode ? "min.js" : "js";
+doctype
+html
+    head
+        meta(charset='UTF-8')
+        title= title
+        link(rel="shortcut icon" type="image/ico" href="favicon.ico")
+        link(rel="image_src" type="image/jpeg" href=image)
+        meta(name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no")
+        meta(name="description" content=description)
+        meta(property="og:title" content=title)
+        meta(property="og:description" content=description)
+        meta(property="og:image" content=image)
+        //- meta(property="og:url" content=metaURL)             
+            meta(property="og:type" content="website")
+            meta(property="fb:app_id" content="698524533649394")
+    body
+        #app
+            <!-- #{time} -->
+        //- if(devMode)
+        script(src=`//cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.${min}`)
+        script(src=`//cdnjs.cloudflare.com/ajax/libs/vuex/2.1.2/vuex.${min}`)
+        script(src=`//cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.0/vue-router.${min}`)
+        script(src=`//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.${min}`)
+        //- script(src='//code.createjs.com/createjs-2015.11.26.min.js')
+        //- script(src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js')       
+        script(src=`//cdnjs.cloudflare.com/ajax/libs/device.js/0.2.7/device.min.js`)
+        include code.html
