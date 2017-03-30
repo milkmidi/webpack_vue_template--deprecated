@@ -37,12 +37,12 @@ module.exports = {
         // import 的時候不用寫 .js 跟 .vue
         'import/extensions': [ 'error', 'always', {
             js: 'never',
-            vue: 'never',
+            // vue: 'never',
         }],
         "indent": [ "error", 4 ],
         "no-console": "off",
-        'no-plusplus':'off',
-        'global-require':'off',
-        'import/prefer-default-export':'off',
+        'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }]
+        // 'global-require':'off',
+        // 'import/prefer-default-export':'off',
     },
 };

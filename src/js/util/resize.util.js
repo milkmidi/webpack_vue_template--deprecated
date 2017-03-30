@@ -35,7 +35,7 @@ export function resize(parentDOM, element, sourceW, sourceH, fit = 'cover') {
     }
     case 'height': {
         css.height = parentH;
-        const width = sourceW / sourceH * parentH;
+        const width = (sourceW / sourceH) * parentH;
         css.left = parentW - width >> 1;
         css.width = width;
         break;

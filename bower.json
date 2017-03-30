@@ -1,0 +1,25 @@
+{
+  "name": "vue-template",
+  "description": "Medialand Interactive Vue2.x Template with webpack2.x",
+  "main": "",
+  "authors": [
+    "milkmidi <milkmidi@medialand.tw>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "medialand",
+    "interactive",
+    "vue"
+  ],
+  "homepage": "https://github.com/milkmidi/webpack_vue_template",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vuex": "^2.2.1"
+  }
+}

@@ -6,10 +6,10 @@ const state = {
 
 // vue 裡用 this.$store.commit('showLoading' , true)
 const mutations = {
-    showLoading( state, value ) {
+    showLoading(state, value) {
         state.showLoading = value;
     },
-    count( state, value ) {
+    count(state, value) {
         state.count = value;
     },
 };
@@ -21,11 +21,11 @@ const mutations = {
     }
 */
 const actions = {
-    showLoading( { commit }, value ) {
-        commit( 'showLoading',value );
+    showLoading({ commit }, value) {
+        commit('showLoading', value);
     },
-    count( { commit }, value ) {
-        commit( 'count', value );
+    count({ commit }, value) {
+        commit('count', value);
     },
 };
 
@@ -42,16 +42,16 @@ const getters = {
 
 // https://vuex.vuejs.org/en/plugins.html
 // Plugins
-const myPlugin = store => {
+const myPlugin = (store) => {
     // called when the store is initialized
-    store.subscribe(( mutation, state ) => {
+    store.subscribe((mutation, state) => {
         // called after every mutation.
-        console.log( mutation );
+        console.log(mutation);
         // The mutation comes in the format of { type, payload }.
     });
 };
 
-export default new Vuex.Store( {
+export default new Vuex.Store({
     plugins: [myPlugin],
     state,
     getters,

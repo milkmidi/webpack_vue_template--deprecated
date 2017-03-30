@@ -1,12 +1,14 @@
+
+import Index from 'Index.vue';
+
 function log(value) {
     console.log(`%c${value}`, 'background: #bdc3c7; color: black; font-size:10px;');
 }
-
 const router = new VueRouter({
     // mode: 'history',
     routes: [
-        { path: '/', component: require('Index.vue') },
-        { path: '/index', component: require('Index.vue') },
+        { path: '/', component: Index },
+        { path: '/index', component: Index },
         { path: '/grid', component: require('GridLayout.vue') },
         { path: '/youtube', component: require('YoutubeDemo.vue') },
         // { path: '/youtube', component: require( "YoutubeDemo" ), meta: { authorization: true } },
