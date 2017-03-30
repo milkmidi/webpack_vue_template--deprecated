@@ -1,12 +1,12 @@
-const path = require('path'),
-    webpack = require('webpack'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    chalk = require('chalk'),
-    ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin'),
-    HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    copyWebpackPlugin = require('copy-webpack-plugin'),
-    VueExtractTextURLPlugin = require('./webpack-plugin/vue-extracttext-url-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const chalk = require('chalk');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const VueExtractTextURLPlugin = require('./webpack-plugin/vue-extracttext-url-plugin');
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
 const colorFun = DEV_MODE ? chalk.black.bgYellow : chalk.bgCyan.white;
@@ -88,31 +88,33 @@ config.module = {
     rules: [
         {
             test: /\.vue$/,
-            loader: 'vue-loader',
+            use: {
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        stylus: ExtractTextPlugin.extract({
+                            use: 'css!stylus?paths=src/css/',
+                            fallback: 'vue-style',
+                        }),
+                    },
+                    postcss: [
+                        require('autoprefixer')({
+                            browsers: ['last 5 version', 'iOS >=8', 'Safari >=8'],
+                        }),
+                        require('cssnano')({
+                            zindex: false,
+                            calc: false,
+                            reduceIdents: false,
+                        }),
+                    ],
+                },
+            },
             include: path.resolve('src/vue'),
             exclude: /node_modules/,
-            options: {
-                loaders: {
-                    stylus: ExtractTextPlugin.extract({
-                        use: 'css!stylus?paths=src/css/',
-                        fallback: 'vue-style',
-                    }),
-                },
-                postcss: [
-                    require('autoprefixer')({
-                        browsers: ['last 5 version', 'iOS >=8', 'Safari >=8'],
-                    }),
-                    require('cssnano')({
-                        zindex: false,
-                        calc: false,
-                        reduceIdents: false,
-                    }),
-                ],
-            },
         },
         {
             test: /\.js$/,
-            loader: 'babel-loader',
+            use: 'babel-loader',
             include: [
                 path.resolve('src/js'),
             ],
@@ -120,27 +122,26 @@ config.module = {
         },
         {
             test: /\.(png|jpg|gif|svg|ico)$/,
-            include: path.resolve('src/asset/img'),
-            loader: 'url-loader',
-            exclude: /node_modules/,
-            options: {
-                limit: 1024,
-                name: '[path][name].[ext]?[hash:8]',
+            use: {
+                loader: 'url-loader',
+                options: {
+                    limit: 1024,
+                    name: '[path][name].[ext]?[hash:8]',
+                },
             },
+            include: [path.resolve('src/asset/img')],
+            exclude: /node_modules/,
         },
         {
             test: /\.pug$/,
-            loader: 'pug-loader',
-            options: {
-                self: true,
-                pretty: DEV_MODE,
+            use: {
+                loader: 'pug-loader',
+                options: {
+                    self: true,
+                    pretty: DEV_MODE,
+                },
             },
         },
-        /*{
-            test: /\.js$/,
-            include: path.resolve( 'src/asset/fla' ),
-            loader: "imports-loader?this=>window"
-        }*/
     ],
 };
 
