@@ -41,7 +41,8 @@ module.exports = {
         }],
         "indent": [ "error", 4 ],
         "no-console": "off",
-        'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }]
+        'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
+        'no-alert':'off',
         // 'global-require':'off',
         // 'import/prefer-default-export':'off',
     },
