@@ -16,6 +16,7 @@ const chalk = require('chalk');
 // var ifs = require( 'os' ).networkInterfaces();
 // var host = '' + Object.keys( ifs ).map( x => ifs[ x ].filter( x => x.family === 'IPv4' && !x.internal )[ 0 ] ).filter( x => x )[ 0 ].address;
 // host = host || 'localhost';
+const browserSync = require('browser-sync').create();
 const host = 'localhost';
 const port = 3000;
 const URI = `http://${host}:${port}/`;
@@ -252,6 +253,20 @@ gulp.task('pp', () => {
     });
 });
 
+/**
+ * \node_modules\weinre\lib\utils.js:183
+    funcName = func.displayName || func.name || callSite.getFunctionName();
+    然後就當掉了, 所以 browsersync 暫時先不要用
+ */
+gulp.task('b', ['webpack-dev-server'] , ()=>{
+    console.log('browserSync');
+    browserSync.init({        
+        host: 'localhost',
+        port: 3001,
+        proxy: 'http://localhost:3000/',
+    });
+});
+
 gulp.task('d', ['watch', 'webpack-dev-server'], () => gulp.src('./')
         .pipe($.open({ uri: `${URI}?debug=medialand` })));
 
@@ -260,6 +275,7 @@ gulp.task('watch', () => {
     gulp.watch('src/asset/img_src/**/*', ['m']);
     gulp.watch('src/asset/sprite_src/**/*', ['sprite']);
 });
+
 
 
 gulp.task('default', ['watch', 'webpack-dev-server']);

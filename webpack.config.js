@@ -7,7 +7,7 @@ const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plug
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
 const VueExtractTextURLPlugin = require('./webpack-plugin/vue-extracttext-url-plugin');
-
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const DEV_MODE = process.env.NODE_ENV === 'development';
 const colorFun = DEV_MODE ? chalk.black.bgYellow : chalk.bgCyan.white;
 
@@ -183,6 +183,12 @@ config.plugins = [
     //  http://vue-loader.vuejs.org/en/workflow/production.html
     ...DEV_MODE ? [
         new webpack.HotModuleReplacementPlugin(),
+        /*new BrowserSyncPlugin(
+            {
+                host: 'localhost',
+                port: 3001,
+                proxy: 'http://localhost:3000/',
+            })*/
     ] : [
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
