@@ -17,7 +17,7 @@ VueExtractTextURLPlugin.prototype.apply = function (compiler) {
     const me = this;
     compiler.plugin('emit', (compilation, callback) => {
         // console.log(me.options.enabled);
-        if (me.options.enabled == false) {
+        if (!me.options.enabled) {
             callback();
             return;
         }
