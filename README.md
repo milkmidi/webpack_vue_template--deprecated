@@ -4,7 +4,6 @@
 * 主機：220.128.166.83
 * remote：/bizdev.medialand.com.tw/milkmidi
 
-# template for nodejs 6.x
 
 人員
 * PM：誰
@@ -13,6 +12,6 @@
 * 後端：誰
 
 指令
-* npm run d   (開發模式)
-* npm run p   (發佈模式)
-* npm run test (mocha 測試)
+* gulp (開發模式)
+* gulp p (發佈模式)
+* yarn run test (mocha 測試)

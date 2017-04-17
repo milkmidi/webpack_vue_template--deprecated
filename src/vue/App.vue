@@ -6,22 +6,23 @@
 #app
     Loading
     Navigation
-    WarningFooter
     main
         transition(name='fade', mode='out-in')
             router-view.view
+    WarningFooter
+            
 
 </template>
 
 <script>
 
-// import { mapGetters, mapActions } from 'vuex';
-import Loading from './Loading';
-import Navigation from './Navigation';
-import WarningFooter from './WarningFooter';
+import { mapActions } from 'vuex';
+import Loading from './Loading.vue';
+import Navigation from './Navigation.vue';
+import WarningFooter from './warningFooter.vue';
 
 export default {
-    name: 'App.vue',
+    name: 'App',
     // props:["appData"],
     /* data() {
         return {
@@ -30,7 +31,7 @@ export default {
     computed: {
     },
     methods: {
-        ...Vuex.mapActions(['showLoading']),
+        ...mapActions(['showLoading']),
     },
     mounted() {
         setTimeout(() => {

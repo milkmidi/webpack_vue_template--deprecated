@@ -1,4 +1,7 @@
-/* global ga , Vue */
+/* global ga*/
+/* eslint no-console:off */
+import Vue from 'vue';
+
 Vue.mixin({
     mounted() {
         const className = this.$options.name || '';

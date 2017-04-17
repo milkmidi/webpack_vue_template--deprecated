@@ -35,7 +35,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default{
-    name: 'GridLayout.vue',
+    name: 'GridLayout',
     data() {
         return {
 

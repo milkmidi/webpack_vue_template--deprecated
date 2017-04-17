@@ -49,10 +49,5 @@
 
 
 <template>
-    <!-- warning start -->
     <div class="warning_footer"><span>-</span> 禁 止 酒 駕 <div class='img'></div> 酒 後 不 開 車　安 全 有 保 障 <span>-</span></div>
-    <!-- warning end -->
 </template>
-
-<script>
-</script>

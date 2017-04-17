@@ -1,8 +1,8 @@
+/* eslint-disable */
 /**
  *@author milkmidi
  *@version 1.0.0
  *@description 決解 vue loader 在用 ExtractTextPlugin css 時，publicPath 不吃 ../../ 的問題
-
  */
 const RawSource = require('webpack-sources').RawSource;
 function VueExtractTextURLPlugin(options) {
@@ -24,7 +24,6 @@ VueExtractTextURLPlugin.prototype.apply = function (compiler) {
         compilation.chunks.forEach((chunk) => {
             chunk.files.forEach((filename) => {
                 const source = compilation.assets[filename].source();
-                // console.log(filename);
                 if (isCSS(filename)) {
                     compilation.assets[filename] = new RawSource(replaceURL(source));
                 }

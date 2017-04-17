@@ -1,3 +1,4 @@
+/* eslint no-console:off */
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -6,18 +7,28 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const VueExtractTextURLPlugin = require('./webpack-plugin/vue-extracttext-url-plugin');
 // const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const DEV_MODE = process.env.NODE_ENV === 'development';
 const colorFun = DEV_MODE ? chalk.black.bgYellow : chalk.bgCyan.white;
 
-// const node_modules_dir = path.join( __dirname, '/node_modules' );
+const bowerComponentsPath = path.join(__dirname, '/bower_components');
 
 console.log(colorFun(`DEV_MODE = ${DEV_MODE} , process.env.NODE_ENV = ${process.env.NODE_ENV}`));
+
 const config = {
     context: path.resolve('src'),
     entry: {
         app: ['./js/app.js'],
+        vendor: [
+            'es6-promise/auto',
+            'vue',
+            'vue-router',
+            'vuex',
+            'vuex-router-sync',
+            'devicejs',
+        ],
     },
     output: {
         filename: 'asset/js/[name].js?[hash]',
@@ -37,8 +48,9 @@ const config = {
             path.resolve('node_modules'),
         ],
         alias: {
+            devicejs: `${bowerComponentsPath}/device.js/lib/device.min.js`,
         },
-        extensions: ['.js', '.vue'],
+        extensions: ['.js'],
     },
     /**
     ████████  ████████ ██     ██  ██████  ████████ ████████  ██     ██ ████████ ████████
@@ -91,13 +103,14 @@ config.module = {
             use: {
                 loader: 'vue-loader',
                 options: {
+                    preserveWhitespace: false,
                     loaders: {
                         stylus: ExtractTextPlugin.extract({
                             use: 'css!stylus?paths=src/css/',
                             fallback: 'vue-style',
                         }),
                     },
-                    postcss: [
+                    /*postcss: [
                         require('autoprefixer')({
                             browsers: ['last 5 version', 'iOS >=8', 'Safari >=8'],
                         }),
@@ -106,7 +119,7 @@ config.module = {
                             calc: false,
                             reduceIdents: false,
                         }),
-                    ],
+                    ],*/
                 },
             },
             include: path.resolve('src/vue'),
@@ -145,6 +158,11 @@ config.module = {
     ],
 };
 
+config.performance = {
+    maxEntrypointSize: 300000,
+    hints: !DEV_MODE ? 'warning' : false,
+};
+
 /*
 ████████  ██       ██     ██  ██████   ████ ██    ██  ██████
 ██     ██ ██       ██     ██ ██    ██   ██  ███   ██ ██    ██
@@ -160,7 +178,7 @@ config.plugins = [
     // src/asset 裡面有什麼就 copy 到 dist/ 下
     copyWebpackPlugin([
         // { from: 'copy', to: './' },
-        { from: 'asset/vendor/vender.bf8bf71e3c.js', to: './asset/js' },
+        // { from: 'asset/vendor/vender.bf8bf71e3c.js', to: './asset/js' },
     ]),
     new HtmlWebpackPlugin({
         template: './html/index.template.pug',
@@ -168,13 +186,13 @@ config.plugins = [
             DEV_MODE,
         },
     }),
-    new ScriptExtHtmlWebpackPlugin({
+    /* new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer',
-    }),
-    new HtmlWebpackIncludeAssetsPlugin({
+    }),*/
+    /* new HtmlWebpackIncludeAssetsPlugin({
         assets: ['asset/js/vender.bf8bf71e3c.js'],
         append: false,
-    }),
+    }),*/
     new webpack.DefinePlugin({
         __DEV__: DEV_MODE,
         'process.env.NODE_ENV': DEV_MODE ? "'development'" : '"production"',
@@ -183,12 +201,7 @@ config.plugins = [
     //  http://vue-loader.vuejs.org/en/workflow/production.html
     ...DEV_MODE ? [
         new webpack.HotModuleReplacementPlugin(),
-        /*new BrowserSyncPlugin(
-            {
-                host: 'localhost',
-                port: 3001,
-                proxy: 'http://localhost:3000/',
-            })*/
+        new FriendlyErrorsPlugin(),
     ] : [
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
@@ -219,10 +232,10 @@ config.plugins = [
 // 不要將這裡打包到你的 js 檔裡, 可以用 extensions ，然後自己 script src, 或是用 addVendor 的方法，二選一
 // vue 一定要加，不知道為什麼 webpack 會自動去找 vue檔
 config.externals = {
-    vue: 'Vue',
+    /* vue: 'Vue',
     vuex: 'Vuex',
     'vue-router': 'VueRouter',
     jquery: '$',
-    axios: 'axios',
+    axios: 'axios',*/
 };
 module.exports = config;

@@ -1,4 +1,4 @@
-/* eslint global-require:off,max-len:off */
+/* eslint global-require:off,max-len:off,no-console:off */
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const gutil = require('gulp-util');
@@ -12,11 +12,11 @@ const rimraf = require('rimraf');
 const buffer = require('vinyl-buffer');
 const spritesmith = require('gulp.spritesmith');
 const chalk = require('chalk');
+const browserSync = require('browser-sync').create();
 //
 // var ifs = require( 'os' ).networkInterfaces();
 // var host = '' + Object.keys( ifs ).map( x => ifs[ x ].filter( x => x.family === 'IPv4' && !x.internal )[ 0 ] ).filter( x => x )[ 0 ].address;
 // host = host || 'localhost';
-const browserSync = require('browser-sync').create();
 const host = 'localhost';
 const port = 3000;
 const URI = `http://${host}:${port}/`;
@@ -67,7 +67,7 @@ function createSprite(src, fileName) {
             cssName: `_${fileName}.css`,
             padding: 4,
             imgOpts: { quality: 100 },
-            cssTemplate: 'src/css/base/handlebars/handlebarsStr.css.basic.handlebars',
+            cssTemplate: 'src/css/base/handlebars/basic.hbs',
             cssHandlebarsHelpers: {
                 ifIndexOfBTN(name, options) {
                     if (name.indexOf('_btn') !== -1) {
@@ -75,24 +75,23 @@ function createSprite(src, fileName) {
                     }
                     return options.inverse(this);
                 },
+                half(value) {
+                    return `${Math.floor(value / 2)}px`;
+                },
                 hoverPosition(position, height) {
-                    console.log(position, height);
-                    return `${position - (height / 2)}px`;
+                    return `${position - Math.floor(height / 2)}px`;
                 },
-                half(num) {
-                    return `${Math.floor(num / 2)}px`;
+                percent(value, base) {
+                    return `${(value / base) * 100}%`;
                 },
-                retinaBGS(spriteSheetWidth, itemWidth) {
-                    return `${(spriteSheetWidth / itemWidth) * 100}%`;
+                bgPosition(spriteSize, size, offset) {
+                    const result = (offset / (size - spriteSize)) * 100;
+                    if (isNaN(result)) {
+                        return '0';
+                    }
+                    return `${result}%`;
                 },
-                getVW(itemWidth) {
-                    return `${(itemWidth / 640) * 100}vw`;
-                },
-                autoSizePosition(spriteSheetSize, itemSize, itemOffset) {
-                    const s = spriteSheetSize / itemOffset;
-                    const w = spriteSheetSize / 640;
-                    return `${(w / s) * 100}vw`;
-                },
+
             },
 
         }));
@@ -170,13 +169,7 @@ gulp.task('vendor', () => {
     const concat = require('gulp-concat');
     const hash = require('gulp-hash-filename');
     const VENDOR_ARR = [
-        './src/asset/vendor/source/vue.min.js',
-        './src/asset/vendor/source/vue-router.min.js',
-        './src/asset/vendor/source/vuex.min.js',
-        './src/asset/vendor/source/TweenMax.min.js',
-        './src/asset/vendor/source/es6-promise.auto.min.js',
-        './src/asset/vendor/source/device.min.js',
-        './src/asset/vendor/source/createjs-2015.11.26.min.js',
+        // './src/asset/vendor/source/',
     ];
     return gulp.src(VENDOR_ARR)
         .pipe(concat('vender.js', { newLine: ';' }))

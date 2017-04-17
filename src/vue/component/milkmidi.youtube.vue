@@ -50,45 +50,45 @@ milkmidi vue youtube component
 </template>
 
 <script>
-
-var static_is_api_ready = false;
-var static_is_api_attached_to_script_tag = false;
-var static_youtube_id = 0;
-const EVENTS = {
+/* global YT */
+/* eslint max-len:off,no-console:off */
+let isAPIReady = false;
+let isAPIAttachedToScriptTag = false;
+let youtubeID = 0;
+/* const EVENTS = {
     0: 'ended',
     1: 'playing',
     2: 'paused',
     3: 'buffering',
-    5: 'queued'
-};
+    5: 'queued',
+};*/
 
 function loadYoutubeScript() {
-    if ( static_is_api_attached_to_script_tag )
-        return;
-    static_is_api_attached_to_script_tag = true;
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore( tag, firstScriptTag );
-    window.onYouTubeIframeAPIReady = function () {
-        console.log( 'onYouTubeIframeAPIReady' );
-        static_is_api_ready = true;
+    if (isAPIAttachedToScriptTag) { return; }
+    isAPIAttachedToScriptTag = true;
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    window.onYouTubeIframeAPIReady = () => {
+        console.log('onYouTubeIframeAPIReady');
+        isAPIReady = true;
     };
 }
-class Timer{
-    constructor( cb ) {        
-        this.id = -1;    
+class Timer {
+    constructor(cb) {
+        this.id = -1;
         this.cb = cb;
     }
     start() {
         this.stop();
-        this.id = setInterval( ()=> {
+        this.id = setInterval(() => {
             this.cb();
-        },33);
+        }, 33);
     }
     stop() {
-        if ( this.id != -1 ) {
-            clearInterval( this.id );
+        if (this.id !== -1) {
+            clearInterval(this.id);
             this.id = -1;
         }
     }
@@ -98,130 +98,127 @@ class Timer{
     }
 }
 export default{
-	className:"milkmidi.youtube.vue",
+    className: 'milkmidi.youtube',
     props: {
-        'video_id': String,
-        'width': {
+        video_id: String,
+        width: {
             type: Number,
-            default: -1
+            default: -1,
         },
-        'height':  {
+        height: {
             type: Number,
-            default: -1
+            default: -1,
         },
-        'autoplay': {
+        autoplay: {
             type: Boolean,
-            default:false
+            default: false,
         },
-        'fs': {
+        fs: {
             type: Boolean,
-            default:false
+            default: false,
         },
         // https://developers.google.com/youtube/player_parameters?playerVersion=HTML5
-        'playerVars': {
-            type:Object,
-            default: { 
-                'autoplay': 0, 
-                'controls': 1,
-                'autohide':1,
-                'enablejsapi':1,
-                'loop':1, 
-                'disablekb':1, 
-                'fs': 1, 
-                'modestbranding': 0, 
-                'showinfo': 0,       
-                'rel':0                
-            }            
-        }
+        playerVars: {
+            type: Object,
+            default: {
+                autoplay: 0,
+                controls: 1,
+                autohide: 1,
+                enablejsapi: 1,
+                loop: 1,
+                disablekb: 1,
+                fs: 1,
+                modestbranding: 0,
+                showinfo: 0,
+                rel: 0,
+            },
+        },
     },
-    data: function () {
+    data() {
         return {
-            _checkAPIReadyID:-1,
+            checkAPIReadyID: -1,
             player: null,
-            elementId: "",
+            elementId: '',
             progress: 0,
             progressTime: null,
-            loadedTime:null
-        };        
+            loadedTime: null,
+        };
     },
     computed: {
         iframeWidth() {
-            return this.width == -1 ? "100%" : this.width + 'px';
+            return this.width === -1 ? '100%' : `${this.width}px`;
         },
         iframeHeight() {
-            return this.height == -1 ? "100%" : this.height + 'px';
-        }
+            return this.height === -1 ? '100%' : `${this.height}px`;
+        },
     },
     watch: {
-        "video_id": function ( value ) {
-            if ( !this.player )
-                return;
-            this.player.cueVideoById( value );
-        }
-    }, 
-    methods: {
-        _checkAPIReadyHandler: function () {
-            if ( static_is_api_ready ) {
-                clearInterval( this._checkAPIReadyID );
-                this._checkAPIReadyID = -1;
-                this._createPlayer();
-            }                
+        video_id(value) {
+            if (!this.player) { return; }
+            this.player.cueVideoById(value);
         },
-        _createPlayer: function () {
-            if ( this.player )
-                return;
-            if ( !this.video_id ) {
+    },
+    methods: {
+        checkAPIReadyHandler() {
+            if (isAPIReady) {
+                clearInterval(this.checkAPIReadyID);
+                this.checkAPIReadyID = -1;
+                this.createPlayer();
+            }
+        },
+        createPlayer() {
+            if (this.player) { return; }
+            if (!this.video_id) {
                 throw new Error('invalidate video_id');
             }
-            
-            static_youtube_id++;
-            this.elementId = 'youtube_player' + static_youtube_id;
+            youtubeID += 1;
+            this.elementId = `youtube_player${youtubeID}`;
             // console.log( this.playerV );
             this.$nextTick(() => {
-                this.player = new YT.Player( this.elementId, {
-                    width   : this.width + 'px',
-                    height  : this.height + 'px',
-                    videoId : this.video_id,
-                    playerVars: this.playerVars, 
+                this.player = new YT.Player(this.elementId, {
+                    width: `${this.width}px`,
+                    height: `${this.height}px`,
+                    videoId: this.video_id,
+                    playerVars: this.playerVars,
                     events: {
-                        'onReady': ( e )=> {
-                            this.$emit( 'ready', e );
-                            if ( !this.progressTime ) {
+                        onReady: (e) => {
+                            this.$emit('ready', e);
+                            if (!this.progressTime) {
                                 this.progressTime = new Timer(() => {
-                                    var p = this.player.getCurrentTime() / this.player.getDuration();
-                                    this.$emit( 'progress', p );
+                                    const p = this.player.getCurrentTime() / this.player.getDuration();
+                                    this.$emit('progress', p);
                                 });
-                                this.loadedTime = new Timer( () => {
-                                    this.$emit( 'loaded', this.player.getVideoLoadedFraction() );
-                                });                                
+                                this.loadedTime = new Timer(() => {
+                                    this.$emit('loaded', this.player.getVideoLoadedFraction());
+                                });
                             }
-                            if ( this.autoplay ) {
+                            if (this.autoplay) {
                                 this.player.playVideo();
                             }
                         },
-                        'onStateChange': ( e ) => {
-                            this.$emit( 'state', e );
-                            if ( e.data == 1) {
+                        onStateChange: (e) => {
+                            this.$emit('state', e);
+                            if (e.data === 1) {
                                 this.progressTime.start();
                                 this.loadedTime.start();
                             } else {
                                 this.progressTime.stop();
                                 this.loadedTime.stop();
                             }
-                        }
-                    }
+                        },
+                    },
                 });
             });
         },
     },
     mounted() {
         loadYoutubeScript();
-        if ( !static_is_api_ready ) {
-            this._checkAPIReadyID = setInterval(() => {
-                this._checkAPIReadyHandler();
-            }, 200 );            
+        if (!isAPIReady) {
+            this.checkAPIReadyID = setInterval(() => {
+                this.checkAPIReadyHandler();
+            }, 200);
         } else {
-            this._createPlayer();
+            this.createPlayer();
         }
     },
     beforeDestroy() {
@@ -229,15 +226,15 @@ export default{
             this.player.destroy();
             this.player = null;
         }
-        if ( this.progressTime ) {
+        if (this.progressTime) {
             this.progressTime.destroy();
             this.progressTime = null;
         }
-        if ( this.loadedTime ) {
+        if (this.loadedTime) {
             this.loadedTime.destroy();
             this.loadedTime = null;
         }
         delete this.player;
     },
-}
+};
 </script>

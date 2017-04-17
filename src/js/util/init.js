@@ -1,4 +1,4 @@
-/* eslint no-bitwise:off */
+/* eslint no-bitwise:off,no-console:off */
 /*
 var result = []
 "debug=medialand".split( '' ).forEach( function ( e ) {

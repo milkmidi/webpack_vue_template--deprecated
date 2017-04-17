@@ -9,25 +9,25 @@
 </template>
 
 <script>
-//import { mapGetters, mapActions } from 'vuex';
+// import { mapGetters, mapActions } from 'vuex';
 export default{
-	name:"login.vue",
-    data(){
+    name: 'login',
+    data() {
         return {
 
-        }
+        };
     },
-    methods:{
+    methods: {
 
     },
-    mounted(){
+    mounted() {
 
     },
-    destroyed(){
+    destroyed() {
 
     },
-    components:{
+    components: {
 
-    }
-}
+    },
+};
 </script>

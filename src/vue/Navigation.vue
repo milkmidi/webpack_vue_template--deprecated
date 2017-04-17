@@ -21,23 +21,23 @@
     .logo
     router-link(to='/index') index
     router-link(to='/grid') grid
-    //- router-link(to='/youtube') YoutubeDemo
     p {{count}}
 
 
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+
 export default{
-    name: 'Navigation.vue',
+    name: 'Navigation',
     data() {
         return {
 
         };
     },
     computed: {
-        ...Vuex.mapGetters(['count']),
+        ...mapGetters(['count']),
     },
     methods: {
 

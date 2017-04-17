@@ -20,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "vuex": "^2.2.1"
+    "device.js": "devicejs#^0.2.7",
+    "gsap": "greensock#^1.19.1"
   }
 }
