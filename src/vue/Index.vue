@@ -19,6 +19,8 @@
     <div class="flex">display:flex</div>
     <div class="box">Box</div>
     <div class="test">Test</div>
+
+    <router-link to='/index'>Index</router-link>
     
     <div class="sprite_wrap">
         <div class="sprite sample1"></div>
@@ -52,6 +54,11 @@ export default{
         return {
 
         };
+    },
+    watch: {
+        $route(v) {
+            console.log(v);
+        },
     },
     computed: {
         // ...mapGetters(['count'])

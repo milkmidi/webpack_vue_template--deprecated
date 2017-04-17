@@ -258,9 +258,9 @@ gulp.task('pp', () => {
     funcName = func.displayName || func.name || callSite.getFunctionName();
     然後就當掉了, 所以 browsersync 暫時先不要用
  */
-gulp.task('b', ['webpack-dev-server'] , ()=>{
+gulp.task('b', ['webpack-dev-server'], () => {
     console.log('browserSync');
-    browserSync.init({        
+    browserSync.init({
         host: 'localhost',
         port: 3001,
         proxy: 'http://localhost:3000/',
@@ -275,7 +275,6 @@ gulp.task('watch', () => {
     gulp.watch('src/asset/img_src/**/*', ['m']);
     gulp.watch('src/asset/sprite_src/**/*', ['sprite']);
 });
-
 
 
 gulp.task('default', ['watch', 'webpack-dev-server']);
