@@ -13,11 +13,12 @@ imgScale( imgUrl , width , height, scale =0.5  ){
 }
 
 shim($w, $h) {
-    &:before 
+    &:before{
         content ''
         display block
         width: 100%
         padding-top unit($h / $w * 100,'%')    
+    }
 }
 
 $abs_center
