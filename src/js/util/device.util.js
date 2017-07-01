@@ -11,27 +11,27 @@ const lineWebView = /line/i.test(userAgent);
 const ios = /iphone|ipod|ipad/.test(userAgent);
 let uiwebview = false;
 function hasClass(className) {
-    const regex = new RegExp(className, 'i');
-    return documentElement.className.match(regex);
+  const regex = new RegExp(className, 'i');
+  return documentElement.className.match(regex);
 }
 function addClass(className) {
-    let currentClassNames = null;
-    if (!hasClass(className)) {
-        currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '');
-        documentElement.className = `${currentClassNames} ${className}`;
-    }
+  let currentClassNames = null;
+  if (!hasClass(className)) {
+    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '');
+    documentElement.className = `${currentClassNames} ${className}`;
+  }
 }
 
 if (ios) {
-    if (!standalone && safari) {
+  if (!standalone && safari) {
         // iosType = 'ios browser';
-    } else if (standalone && !safari) {
+  } else if (standalone && !safari) {
         // iosType = 'ios standalone';
-    } else if (!standalone && !safari) {
+  } else if (!standalone && !safari) {
         // iosType = 'ios uiwebview';
-        uiwebview = true;
-        addClass('uiwebview');
-    }
+    uiwebview = true;
+    addClass('uiwebview');
+  }
 }
 if (fbWebView) addClass('fbwebview');
 if (lineWebView) addClass('linewebview');
@@ -42,19 +42,19 @@ if (lineWebView) addClass('linewebview');
  * @return {boolean}
  */
 export function isWebView() {
-    return uiwebview || fbWebView || lineWebView;
+  return uiwebview || fbWebView || lineWebView;
 }
 /**
  * 是否在FBWebView
  * @return {boolean}
  */
 export function isFBWebView() {
-    return fbWebView;
+  return fbWebView;
 }
 /**
  * 是否在LineWebView
  * @return {boolean}
  */
 export function isLineWebView() {
-    return lineWebView;
+  return lineWebView;
 }

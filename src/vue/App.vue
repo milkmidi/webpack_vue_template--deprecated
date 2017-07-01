@@ -4,12 +4,12 @@
 <template lang="pug">
 
 #app
-    Loading
-    Navigation
-    main
-        transition(name='fade', mode='out-in')
-            router-view.view
-    WarningFooter
+  Loading
+  Navigation
+  main
+    transition(name='fade', mode='out-in')
+        router-view.view
+  WarningFooter
             
 
 </template>
@@ -22,28 +22,28 @@ import Navigation from './Navigation.vue';
 import WarningFooter from './warningFooter.vue';
 
 export default {
-    name: 'App',
+  name: 'App',
     // props:["appData"],
     /* data() {
         return {
         }
     },*/
-    computed: {
+  computed: {
+  },
+  methods: {
+    ...mapActions(['showLoading']),
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showLoading(false);
     },
-    methods: {
-        ...mapActions(['showLoading']),
-    },
-    mounted() {
-        setTimeout(() => {
-            this.showLoading(false);
-        },
         1000);
-    },
-    components: {
-        Loading,
-        Navigation,
-        WarningFooter,
-    },
+  },
+  components: {
+    Loading,
+    Navigation,
+    WarningFooter,
+  },
 };
 </script>
 

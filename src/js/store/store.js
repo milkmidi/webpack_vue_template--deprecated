@@ -4,18 +4,18 @@ import Vue from 'vue';
 Vue.use(Vuex);
 
 const state = {
-    showLoading: true,
-    count: 0,
+  showLoading: true,
+  count: 0,
 };
 
 // vue 裡用 this.$store.commit('showLoading' , true)
 const mutations = {
-    showLoading(state, value) {
-        state.showLoading = value;
-    },
-    count(state, value) {
-        state.count = value;
-    },
+  showLoading(state, value) {
+    state.showLoading = value;
+  },
+  count(state, value) {
+    state.count = value;
+  },
 };
 
 /*
@@ -25,12 +25,12 @@ const mutations = {
     }
 */
 const actions = {
-    showLoading({ commit }, value) {
-        commit('showLoading', value);
-    },
-    count({ commit }, value) {
-        commit('count', value);
-    },
+  showLoading({ commit }, value) {
+    commit('showLoading', value);
+  },
+  count({ commit }, value) {
+    commit('count', value);
+  },
 };
 
 /**
@@ -39,8 +39,8 @@ const actions = {
     },
  */
 const getters = {
-    showLoading: state => state.showLoading,
-    count: state => state.count,
+  showLoading: state => state.showLoading,
+  count: state => state.count,
 };
 
 
@@ -48,17 +48,17 @@ const getters = {
 // Plugins
 const myPlugin = (store) => {
     // called when the store is initialized
-    store.subscribe((mutation, state) => {
+  store.subscribe((mutation, state) => {
         // called after every mutation.
-        console.log(mutation);
+    console.log(mutation);
         // The mutation comes in the format of { type, payload }.
-    });
+  });
 };
 
 export default new Vuex.Store({
-    plugins: [myPlugin],
-    state,
-    getters,
-    actions,
-    mutations,
+  plugins: [myPlugin],
+  state,
+  getters,
+  actions,
+  mutations,
 });

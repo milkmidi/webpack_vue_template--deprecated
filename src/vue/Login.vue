@@ -11,23 +11,23 @@
 <script>
 // import { mapGetters, mapActions } from 'vuex';
 export default{
-    name: 'login',
-    data() {
-        return {
+  name: 'login',
+  data() {
+    return {
 
-        };
-    },
-    methods: {
+    };
+  },
+  methods: {
 
-    },
-    mounted() {
+  },
+  mounted() {
 
-    },
-    destroyed() {
+  },
+  destroyed() {
 
-    },
-    components: {
+  },
+  components: {
 
-    },
+  },
 };
 </script>

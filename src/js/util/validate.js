@@ -15,7 +15,7 @@ const TW_ID_MAP = { a: 10, b: 11, c: 12, d: 13, e: 14, f: 15, g: 16, h: 17, j: 1
  * @return {boolean}
  */
 export function isEmail(email) {
-    return EMAIL_PATTERN.test(email);
+  return EMAIL_PATTERN.test(email);
 }
 /**
  * 是否為有效的手機/電話號碼
@@ -23,34 +23,34 @@ export function isEmail(email) {
  * @return {boolean}
  */
 export function isMobileNumber(mobileNumber) {
-    return MOBILE_PATTERN.test(mobileNumber.toString());
+  return MOBILE_PATTERN.test(mobileNumber.toString());
 }
 /**
  * 是否為有效的台灣身份字號
  * @param {number|string} sID
  */
 export function isIdentityInTaiwan(sID) {
-    if (!TW_ID_PATTERN.test(sID)) {
-        return false;
+  if (!TW_ID_PATTERN.test(sID)) {
+    return false;
+  }
+  const firstLetter = sID.charAt(0).toLowerCase();
+  const firstLetterToNumber = TW_ID_MAP[firstLetter];
+  const lastNum = parseInt(sID.charAt(9), 10);
+  const nums = [
+    Math.floor(firstLetterToNumber / 10),
+    firstLetterToNumber % 10,
+  ];
+  let sum = 0;
+  const length = TW_ID_MULTIPLY.length;
+  for (let i = 0; i < length; i++) {
+    let n;
+    if (i < 2) {
+      n = nums[i];
+    } else {
+      n = parseInt(sID.charAt(i - 1), 10);
     }
-    const firstLetter = sID.charAt(0).toLowerCase();
-    const firstLetterToNumber = TW_ID_MAP[firstLetter];
-    const lastNum = parseInt(sID.charAt(9), 10);
-    const nums = [
-        Math.floor(firstLetterToNumber / 10),
-        firstLetterToNumber % 10,
-    ];
-    let sum = 0;
-    const length = TW_ID_MULTIPLY.length;
-    for (let i = 0; i < length; i++) {
-        let n;
-        if (i < 2) {
-            n = nums[i];
-        } else {
-            n = parseInt(sID.charAt(i - 1), 10);
-        }
-        sum += n * TW_ID_MULTIPLY[i];
-    }
-    sum += lastNum;
-    return sum % 10 === 0;
+    sum += n * TW_ID_MULTIPLY[i];
+  }
+  sum += lastNum;
+  return sum % 10 === 0;
 }

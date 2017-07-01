@@ -9,12 +9,12 @@
 
 <template lang="pug">
 .index-root
-    h1 Index
-    button(@click='count(10)') Add Count
-    .flex display:flex
-    .box Box
-    .test Test
-    router-link(to='/index') Index
+  h1 Index
+  button(@click='count(10)') Add Count
+  .flex display:flex
+  .box Box
+  .test Test
+  router-link(to='/index') Index
 </template>
 
 <script>
@@ -22,30 +22,30 @@
 import { mapActions } from 'vuex';
 
 export default{
-    name: 'Home',
-    data() {
-        return {
+  name: 'Home',
+  data() {
+    return {
 
-        };
-    },
-    watch: {
-        $route(v) {
+    };
+  },
+  watch: {
+    $route(v) {
             // console.log(v);
-        },
     },
-    computed: {
+  },
+  computed: {
         // ...mapGetters(['count'])
-    },
-    methods: {
-        ...mapActions(['showLoading', 'count']),
-    },
-    mounted() {
+  },
+  methods: {
+    ...mapActions(['showLoading', 'count']),
+  },
+  mounted() {
 
-    },
-    destroyed() {
+  },
+  destroyed() {
 
-    },
-    components: {
-    },
+  },
+  components: {
+  },
 };
 </script>

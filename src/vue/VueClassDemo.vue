@@ -15,30 +15,30 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({
-    props: {
-        propMessage: String,
-    },
+  props: {
+    propMessage: String,
+  },
 })
 export default class App extends Vue {
     // initial data
-    msg = 113245;
+  msg = 113245;
 
     // use prop values for initial data
-    helloMsg = `Hello, ${this.propMessage}`;
+  helloMsg = `Hello, ${this.propMessage}`;
 
     // lifecycle hook
-    mounted() {
-        this.greet();
-    }
+  mounted() {
+    this.greet();
+  }
 
     // computed
-    get computedMsg() {
-        return `computed ${this.msg}`;
-    }
+  get computedMsg() {
+    return `computed ${this.msg}`;
+  }
 
     // method
-    greet() {
+  greet() {
         // alert(`greeting: ${this.msg}`);
-    }
+  }
 }
 </script>
