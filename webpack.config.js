@@ -18,40 +18,38 @@ const bowerComponentsPath = path.join(__dirname, '/bower_components');
 console.log(colorFun(`DEV_MODE = ${DEV_MODE} , process.env.NODE_ENV = ${process.env.NODE_ENV}`));
 
 const config = {
-    context: path.resolve('src'),
-    entry: {
-        app: ['./js/app.js'],
-        vendor: [
-            'es6-promise/auto',
-            'vue',
-            'vue-router',
-            'vuex',
-            'vuex-router-sync',
-            'devicejs',
-        ],
+  context: path.resolve('src'),
+  entry: {
+    app: ['./js/app.js'],
+    vendor: [
+      'es6-promise/auto',
+      'vue',
+      'vue-router',
+      'vuex',
+      'vuex-router-sync',
+      // 'devicejs',
+    ],
+  },
+  output: {
+    filename: 'asset/js/[name].js?[hash]',
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '',
+  },
+
+  resolve: {
+    modules: [
+      path.resolve('src/vue'),
+      path.resolve('src/js'),
+      path.resolve('src/css'),
+      path.resolve('src/asset/img'),
+      path.resolve('src'),
+      path.resolve('node_modules'),
+    ],
+    alias: {
+      // devicejs: `${bowerComponentsPath}/device.js/lib/device.min.js`,
     },
-    output: {
-        filename: 'asset/js/[name].js?[hash]',
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '',
-    },
-    resolveLoader: {
-        moduleExtensions: ['-loader'],
-    },
-    resolve: {
-        modules: [
-            path.resolve('src/vue'),
-            path.resolve('src/js'),
-            path.resolve('src/css'),
-            path.resolve('src/asset/img'),
-            path.resolve('src'),
-            path.resolve('node_modules'),
-        ],
-        alias: {
-            devicejs: `${bowerComponentsPath}/device.js/lib/device.min.js`,
-        },
-        extensions: ['.js'],
-    },
+    extensions: ['.js', '.vue'],
+  },
     /**
     ████████  ████████ ██     ██  ██████  ████████ ████████  ██     ██ ████████ ████████
     ██     ██ ██       ██     ██ ██    ██ ██       ██     ██ ██     ██ ██       ██     ██
@@ -62,29 +60,29 @@ const config = {
     ████████  ████████    ███     ██████  ████████ ██     ██    ███    ████████ ██     ██
     */
     // https://webpack.js.org/configuration/dev-server/█devserver
-    devServer: {
+  devServer: {
         // historyApiFallback: false,
         // noInfo: true,
-        hot: true,
+    hot: true,
         // inline: true,
         // https://webpack.js.org/configuration/stats/
-        stats: {
-            colors: true,
-            hash: false, // add the hash of the compilation
-            version: false, // add webpack version information
-            timings: true, // add timing information
-            assets: true, // add assets information
-            chunks: false, // add chunk information
-            chunkModules: false, // add built modules information to chunk information
-            modules: false, // add built modules information
-            cached: false, // add also information about cached (not built) modules
-            reasons: false, // add information about the reasons why modules are included
-            source: false, // add the source code of modules
-            error: true,
-            errorDetails: true, // add details to errors (like resolving log)
-            chunkOrigins: false, // add the origins of chunks and chunk merging info
-        },
+    stats: {
+      colors: true,
+      hash: false, // add the hash of the compilation
+      version: false, // add webpack version information
+      timings: true, // add timing information
+      assets: true, // add assets information
+      chunks: false, // add chunk information
+      chunkModules: false, // add built modules information to chunk information
+      modules: false, // add built modules information
+      cached: false, // add also information about cached (not built) modules
+      reasons: false, // add information about the reasons why modules are included
+      source: false, // add the source code of modules
+      error: true,
+      errorDetails: true, // add details to errors (like resolving log)
+      chunkOrigins: false, // add the origins of chunks and chunk merging info
     },
+  },
 };
 
 /*
@@ -97,19 +95,19 @@ const config = {
 ██     ██  ███████  ████████   ███████  ████████ ████████
 */
 config.module = {
-    rules: [
-        {
-            test: /\.vue$/,
-            use: {
-                loader: 'vue-loader',
-                options: {
-                    preserveWhitespace: false,
-                    loaders: {
-                        stylus: ExtractTextPlugin.extract({
-                            use: 'css!stylus?paths=src/css/',
-                            fallback: 'vue-style',
-                        }),
-                    },
+  rules: [
+    {
+      test: /\.vue$/,
+      use: {
+        loader: 'vue-loader',
+        options: {
+          preserveWhitespace: false,
+          loaders: {
+            stylus: ExtractTextPlugin.extract({
+              use: 'css-loader!stylus-loader?paths=src/css/',
+              fallback: 'vue-style-loader',
+            }),
+          },
                     /*postcss: [
                         require('autoprefixer')({
                             browsers: ['last 5 version', 'iOS >=8', 'Safari >=8'],
@@ -120,47 +118,47 @@ config.module = {
                             reduceIdents: false,
                         }),
                     ],*/
-                },
-            },
-            include: path.resolve('src/vue'),
-            exclude: /node_modules/,
         },
-        {
-            test: /\.js$/,
-            use: 'babel-loader',
-            include: [
-                path.resolve('src/js'),
-            ],
-            exclude: /node_modules/,
+      },
+      include: path.resolve('src/vue'),
+      exclude: /node_modules/,
+    },
+    {
+      test: /\.js$/,
+      use: 'babel-loader',
+      include: [
+        path.resolve('src/js'),
+      ],
+      exclude: /node_modules/,
+    },
+    {
+      test: /\.(png|jpg|gif|svg|ico)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 1024,
+          name: '[path][name].[ext]?[hash:8]',
         },
-        {
-            test: /\.(png|jpg|gif|svg|ico)$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 1024,
-                    name: '[path][name].[ext]?[hash:8]',
-                },
-            },
-            include: [path.resolve('src/asset/img')],
-            exclude: /node_modules/,
+      },
+      include: [path.resolve('src/asset/img')],
+      exclude: /node_modules/,
+    },
+    {
+      test: /\.pug$/,
+      use: {
+        loader: 'pug-loader',
+        options: {
+          self: true,
+          pretty: DEV_MODE,
         },
-        {
-            test: /\.pug$/,
-            use: {
-                loader: 'pug-loader',
-                options: {
-                    self: true,
-                    pretty: DEV_MODE,
-                },
-            },
-        },
-    ],
+      },
+    },
+  ],
 };
 
 config.performance = {
-    maxEntrypointSize: 300000,
-    hints: !DEV_MODE ? 'warning' : false,
+  maxEntrypointSize: 300000,
+  hints: !DEV_MODE ? 'warning' : false,
 };
 
 /*
@@ -173,19 +171,19 @@ config.performance = {
 ██        ████████  ███████   ██████   ████ ██    ██  ██████
 */
 config.plugins = [
-    new ExtractTextPlugin({ filename: 'asset/css/[name].css?[hash]', disable: DEV_MODE }),
-    new VueExtractTextURLPlugin({ disable: DEV_MODE }),
+  new ExtractTextPlugin({ filename: 'asset/css/[name].css?[hash]', disable: DEV_MODE }),
+  new VueExtractTextURLPlugin({ disable: DEV_MODE }),
     // src/asset 裡面有什麼就 copy 到 dist/ 下
-    copyWebpackPlugin([
+  copyWebpackPlugin([
         // { from: 'copy', to: './' },
         // { from: 'asset/vendor/vender.bf8bf71e3c.js', to: './asset/js' },
-    ]),
-    new HtmlWebpackPlugin({
-        template: './html/index.template.pug',
-        data: {
-            DEV_MODE,
-        },
-    }),
+  ]),
+  new HtmlWebpackPlugin({
+    template: './html/index.template.pug',
+    data: {
+      DEV_MODE,
+    },
+  }),
     /* new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer',
     }),*/
@@ -193,31 +191,31 @@ config.plugins = [
         assets: ['asset/js/vender.bf8bf71e3c.js'],
         append: false,
     }),*/
-    new webpack.DefinePlugin({
-        __DEV__: DEV_MODE,
-        'process.env.NODE_ENV': DEV_MODE ? "'development'" : '"production"',
-    }),
+  new webpack.DefinePlugin({
+    __DEV__: DEV_MODE,
+    'process.env.NODE_ENV': DEV_MODE ? "'development'" : '"production"',
+  }),
 
     //  http://vue-loader.vuejs.org/en/workflow/production.html
-    ...DEV_MODE ? [
-        new webpack.HotModuleReplacementPlugin(),
-        new FriendlyErrorsPlugin(),
-    ] : [
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: false,
-            compress: { warnings: false },
-            output: { comments: false },
-        }),
+  ...DEV_MODE ? [
+    new webpack.HotModuleReplacementPlugin(),
+    new FriendlyErrorsPlugin(),
+  ] : [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      compress: { warnings: false },
+      output: { comments: false },
+    }),
         // optimize module ids by occurence count
         // 以下這個還不知道要做什麼
-        new webpack.LoaderOptionsPlugin({
-            test: /\.css$/,
-            minimize: true,
-            debug: false,
-            options: {
-            },
-        }),
-    ],
+    new webpack.LoaderOptionsPlugin({
+      test: /\.css$/,
+      minimize: true,
+      debug: false,
+      options: {
+      },
+    }),
+  ],
 ];
 
 /*

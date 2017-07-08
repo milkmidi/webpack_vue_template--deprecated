@@ -12,7 +12,6 @@ const rimraf = require('rimraf');
 const buffer = require('vinyl-buffer');
 const spritesmith = require('gulp.spritesmith');
 const chalk = require('chalk');
-const browserSync = require('browser-sync').create();
 //
 // var ifs = require( 'os' ).networkInterfaces();
 // var host = '' + Object.keys( ifs ).map( x => ifs[ x ].filter( x => x.family === 'IPv4' && !x.internal )[ 0 ] ).filter( x => x )[ 0 ].address;
@@ -253,20 +252,6 @@ gulp.task('pp', () => {
           uri: 'http://www.medialand.tw/?debug=medialand',
         }));
     });
-  });
-});
-
-/**
- * \node_modules\weinre\lib\utils.js:183
-    funcName = func.displayName || func.name || callSite.getFunctionName();
-    然後就當掉了, 所以 browsersync 暫時先不要用
- */
-gulp.task('b', ['webpack-dev-server'], () => {
-  console.log('browserSync');
-  browserSync.init({
-    host: 'localhost',
-    port: 3001,
-    proxy: 'http://localhost:3000/',
   });
 });
 

@@ -32,7 +32,7 @@ module.exports = {
     // import 的時候不用寫 .js 跟 .vue
     'import/extensions': ['error', 'always', {
       js: 'never',
-      // vue: 'never',
+      vue: 'never',
     }],
     'no-param-reassign': ['error', {
       props: false
