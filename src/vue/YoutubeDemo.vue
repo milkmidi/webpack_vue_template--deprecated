@@ -1,4 +1,8 @@
-<style></style>
+<style>
+.youtube-root{
+  color:red;
+}
+</style>
 
 <template lang="pug">
 

@@ -2,10 +2,10 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
 
-import Home from 'Home.vue';
+import Home from '../vue/Home.vue';
 /* import YoutubeDemo from 'youtubeDemo.vue';
 import GridLayout from 'gridLayout.vue';
-import Login from 'login.vue';*/
+import Login from 'login.vue'; */
 
 // console.log(System);
 
@@ -18,15 +18,15 @@ function log(value) {
 const GridLayout = () => System.import('../vue/GridLayout.vue');
 
 const router = new VueRouter({
-    // mode: 'history',
+  mode: 'history',
   routes: [
-        { path: '/', component: Home },
-        { path: '/index', component: Home },
-        { path: '/grid', component: GridLayout },
-        /*
-        { path: '/youtube', component: YoutubeDemo },
-        { path: '/login', component: Login },*/
-        // { path: '/youtube', component: require( "YoutubeDemo" ), meta: { authorization: true } },
+    { path: '/', component: Home },
+    { path: '/index', component: Home },
+    { path: '/grid', component: GridLayout },
+    /*
+    { path: '/youtube', component: YoutubeDemo },
+    { path: '/login', component: Login },*/
+    // { path: '/youtube', component: require( "YoutubeDemo" ), meta: { authorization: true } },
   ],
 });
 

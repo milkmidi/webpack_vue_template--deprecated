@@ -10,15 +10,12 @@ module.exports = {
   },
   extends: 'airbnb-base',
   globals: {
-    'FB': true,
+    'FB': false,
+    '$':false,
   },
-
-  // 才能 lint .vue 檔
   plugins: [
     'html',
   ],
-
-  // eslint-plugin-import 會用 webpack 的 resolve modules 設定
   settings: {
     'import/resolver': {
       webpack: {
@@ -26,8 +23,6 @@ module.exports = {
       },
     },
   },
-
-  // 自訂規則
   rules: {
     // import 的時候不用寫 .js 跟 .vue
     'import/extensions': ['error', 'always', {

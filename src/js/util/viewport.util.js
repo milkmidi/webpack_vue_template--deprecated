@@ -8,9 +8,9 @@ export function setViewportToDeviceWidth() {
 }
 export function setViewportSize(size) {
   const scale = screen.width / size;
-    /* if (device.ios() && device.landscape()) {
-        scale = screen.height / size;
-    }*/
+  /* if (device.ios() && device.landscape()) {
+      scale = screen.height / size;
+  } */
   const value = `width=${size},initial-scale=${scale},minimum-scale=${scale}, maximum-scale=${scale},user-scalable=no, shrink-to-fit=no`;
   setViewport(value);
 }

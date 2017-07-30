@@ -17,9 +17,9 @@
 <script>
 
 import { mapActions } from 'vuex';
-import Loading from './Loading.vue';
-import Navigation from './Navigation.vue';
-import WarningFooter from './warningFooter.vue';
+import Loading from './Loading';
+import Navigation from './Navigation';
+import WarningFooter from './warningFooter';
 
 export default {
   name: 'App',
@@ -27,7 +27,7 @@ export default {
     /* data() {
         return {
         }
-    },*/
+    }, */
   computed: {
   },
   methods: {

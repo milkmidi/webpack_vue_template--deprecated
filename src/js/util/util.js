@@ -13,18 +13,19 @@ export function queryString(name) {
   if (queryObject != null) {
     return queryObject[name];
   }
-  const locationSearch = location.search;
-  if (locationSearch === '') {
+  const { search } = location;
+  if (search === '') {
     queryObject = {};
     return null;
   }
   const params = {};
-  const q = locationSearch.substr(1);
+  const q = search.substr(1);
   const andArr = q.split('&');
-  for (const a in andArr) {
-    const [key, value] = andArr[a].split('=');
+  andArr.forEach((d) => {
+    const [key, value] = d.split('=');
     params[decodeURIComponent(key)] = decodeURIComponent(value);
-  }
+  });
+
   queryObject = params;
   return queryObject[name];
 }
@@ -62,17 +63,14 @@ export function removeClass(el, className) {
 }
 
 export function disableScrolling() {
-  document.ontouchmove = function (e) {
-    e.preventDefault();
-  };
+  document.ontouchmove = e => e.preventDefault();
 }
 export function enableScrolling() {
-  document.ontouchmove = function () {
-    return true;
-  };
+  document.ontouchmove = () => true;
 }
 
 export function shuffleArray(array) {
+  // eslint-disable-next-line
   for (let j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
   return array;
 }

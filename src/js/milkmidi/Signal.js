@@ -3,7 +3,45 @@
 Validate.js
 2016 06 03
 */
-
+class Slot {
+    /**
+     * @param  {Signal} signal
+     * @param  {Function} listener
+     * @param  {object} context
+     * @param  {boolean} onece
+     */
+  constructor(signal, listener, context, once) {
+    this._signal = signal;
+    this._listener = listener;
+    this._context = context;
+    this._once = once;
+    this._destroyed = false;
+  }
+  execute() {
+    if (this._destroyed) { return; }
+    const paramsArr = Array.prototype.slice.call(arguments);
+    this._listener.apply(context, paramsArr);
+    if (this._once) {
+      this.remove();
+    }
+  }
+  remove() {
+    if (this._destroyed) { return; }
+    this._signal.remove(this._listener);
+  }
+  _destroy() {
+    delete this._signal;
+    delete this._listener;
+    delete this._context;
+    this._destroyed = true;
+  }
+  get once() {
+    return this._once;
+  }
+  toString() {
+    return `[Slot destroyed:${this._destroyed}]`;
+  }
+}
 class Signal {
   constructor() {
     this.enabled = true;
@@ -140,43 +178,5 @@ class Signal {
     return `[Signal enabled:${this.enabled} numListeners:${this.numListeners}]`;
   }
 }
-class Slot {
-    /**
-     * @param  {Signal} signal
-     * @param  {Function} listener
-     * @param  {object} context
-     * @param  {boolean} onece
-     */
-  constructor(signal, listener, context, once) {
-    this._signal = signal;
-    this._listener = listener;
-    this._context = context;
-    this._once = once;
-    this._destroyed = false;
-  }
-  execute() {
-    if (this._destroyed) { return; }
-    const paramsArr = Array.prototype.slice.call(arguments);
-    this._listener.apply(context, paramsArr);
-    if (this._once) {
-      this.remove();
-    }
-  }
-  remove() {
-    if (this._destroyed) { return; }
-    this._signal.remove(this._listener);
-  }
-  _destroy() {
-    delete this._signal;
-    delete this._listener;
-    delete this._context;
-    this._destroyed = true;
-  }
-  get once() {
-    return this._once;
-  }
-  toString() {
-    return `[Slot destroyed:${this._destroyed}]`;
-  }
-}
+
 module.exports = Signal;

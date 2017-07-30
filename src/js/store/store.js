@@ -1,3 +1,4 @@
+/* eslint no-shadow:0 */
 import Vuex from 'vuex';
 import Vue from 'vue';
 
@@ -19,10 +20,10 @@ const mutations = {
 };
 
 /*
-    vue 裡用 this.$store.dispatch('showLoading' , true)
-    methods(){
-        ...Vuex.mapActions(['showLoading','count']),
-    }
+  vue 裡用 this.$store.dispatch('showLoading' , true)
+  methods(){
+    ...Vuex.mapActions(['showLoading','count']),
+  }
 */
 const actions = {
   showLoading({ commit }, value) {
@@ -34,9 +35,9 @@ const actions = {
 };
 
 /**
-    computed:{
-        ...Vuex.mapGetters(['count'])
-    },
+  computed:{
+    ...Vuex.mapGetters(['count'])
+  },
  */
 const getters = {
   showLoading: state => state.showLoading,
@@ -46,17 +47,17 @@ const getters = {
 
 // https://vuex.vuejs.org/en/plugins.html
 // Plugins
-const myPlugin = (store) => {
+/* const myPlugin = (store) => {
     // called when the store is initialized
-  store.subscribe((mutation, state) => {
+  store.subscribe((mutation) => {
         // called after every mutation.
-    console.log(mutation);
+    // console.log(mutation);
         // The mutation comes in the format of { type, payload }.
   });
-};
+}; */
 
 export default new Vuex.Store({
-  plugins: [myPlugin],
+  // plugins: [myPlugin],
   state,
   getters,
   actions,

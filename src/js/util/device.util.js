@@ -41,20 +41,14 @@ if (lineWebView) addClass('linewebview');
  * 是否在WebView下
  * @return {boolean}
  */
-export function isWebView() {
-  return uiwebview || fbWebView || lineWebView;
-}
+export const isWebView = () => uiwebview || fbWebView || lineWebView;
 /**
  * 是否在FBWebView
  * @return {boolean}
  */
-export function isFBWebView() {
-  return fbWebView;
-}
+export const isFBWebView = () => fbWebView;
 /**
  * 是否在LineWebView
  * @return {boolean}
  */
-export function isLineWebView() {
-  return lineWebView;
-}
+export const isLineWebView = () => lineWebView;

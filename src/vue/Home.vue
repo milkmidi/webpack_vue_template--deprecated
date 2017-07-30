@@ -4,7 +4,7 @@
 
 <style lang="stylus">
 .flex
-    display:flex
+  display:flex
 </style>
 
 <template lang="pug">
@@ -13,7 +13,7 @@
   button(@click='count(10)') Add Count
   .flex display:flex
   .box Box
-  .test Test
+  .test Test12345
   router-link(to='/index') Index
 </template>
 
@@ -25,16 +25,13 @@ export default{
   name: 'Home',
   data() {
     return {
-
     };
   },
   watch: {
-    $route(v) {
-            // console.log(v);
+    $route() {
     },
   },
   computed: {
-        // ...mapGetters(['count'])
   },
   methods: {
     ...mapActions(['showLoading', 'count']),

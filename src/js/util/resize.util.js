@@ -1,4 +1,4 @@
-/* eslint no-bitwise:off , no-param-reassign:off , default-case:off*/
+/* eslint no-bitwise:off , no-param-reassign:off , default-case:off */
 /**
  * @author milkmidi
  * @version 1.0.1
@@ -7,7 +7,7 @@
 /* export var ResizeType = {
     COVER: 'cover',
     HEIGHT: 'height',
-};*/
+}; */
 
 /**
  * @param  {HTMLElement} parentDOM

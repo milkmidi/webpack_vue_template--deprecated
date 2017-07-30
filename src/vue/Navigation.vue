@@ -18,10 +18,10 @@
 <template lang="pug">
 
 .navigation-root
-    .logo
-    router-link(to='/index') index
-    router-link(to='/grid') grid
-    p {{count}}
+  .logo
+  router-link(to='/index') index
+  router-link(to='/grid') grid
+  p {{count}}
 
 
 </template>
