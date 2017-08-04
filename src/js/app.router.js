@@ -2,7 +2,7 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
 
-import Home from '../vue/Home.vue';
+import Home from '../vue/Home';
 /* import YoutubeDemo from 'youtubeDemo.vue';
 import GridLayout from 'gridLayout.vue';
 import Login from 'login.vue'; */

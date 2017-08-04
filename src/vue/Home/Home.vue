@@ -19,7 +19,7 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+// import { mapActions } from 'vuex';
 
 export default{
   name: 'Home',
@@ -34,7 +34,7 @@ export default{
   computed: {
   },
   methods: {
-    ...mapActions(['showLoading', 'count']),
+    // ...mapActions(['showLoading', 'count']),
   },
   mounted() {
 
