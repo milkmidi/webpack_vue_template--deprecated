@@ -1,20 +1,13 @@
-import { sync } from 'vuex-router-sync';
 import Vue from 'vue';
 
-import store from './store/store';
-import router from './app.router';
-import App from '../vue/App';
-
-import './app.require';
-
-sync(store, router);
-
+import '@/util/polyfill';
+import App from '@/container/App';
+import router from './router';
+import store from './store';
 
 export default new Vue({
-  className: 'main.js',
   el: '#app',
-  store,
   router,
+  store,
   render: h => h(App),
 });
-

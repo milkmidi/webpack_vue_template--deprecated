@@ -1,1 +1,9 @@
 dist/*
+node_modules/*
+_doc/*
+src/vendor/*
+src/lib/*
+src/html/*
+flow-typed/*
+**/vendor/*.js
+!.eslintrc.js
