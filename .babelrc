@@ -1,14 +1,25 @@
 {
   "presets": [
-    "es2015",
-    "stage-3"
+    ["env", {
+      "modules": false,
+      "loose": true,
+      "targets": {
+        "node": "current",
+        "browsers": [
+          "> 5%",
+          "last 2 versions", 
+          "ie >= 10"
+        ]
+      }
+    }],
+    "stage-0",
+    "flow"
   ],
   "plugins": [
-    "transform-runtime",
-    "transform-decorators-legacy",
-    "transform-object-rest-spread",
-    "transform-async-to-generator",
-    "transform-async-generator-functions",
-    "transform-class-properties"
+    ["transform-runtime",{
+      "helpers": false,
+      "polyfill": false,
+      "regenerator": false
+    }]
   ]
 }

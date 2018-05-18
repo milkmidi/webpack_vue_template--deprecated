@@ -1,4 +1,3 @@
-// http://eslint.org/docs/user-guide/configuring
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -7,33 +6,43 @@ module.exports = {
   },
   env: {
     browser: true,
+    jest: true,
   },
   extends: 'airbnb-base',
   globals: {
-    'FB': false,
-    '$':false,
+    FB: false,
+    ga: false,
+    device: false,
   },
   plugins: [
     'html',
+    'vue-libs',
+    'flowtype',
   ],
   settings: {
     'import/resolver': {
       webpack: {
-        config: 'webpack.config.js',
+        config: './webpack.config.js',
       },
     },
   },
   rules: {
-    // import 的時候不用寫 .js 跟 .vue
+    'vue-libs/jsx-uses-vars': 2,
+    'prefer-promise-reject-errors': 0,
+    'object-curly-newline': 0,
+    'global-require': 0,
+    'import/prefer-default-export': 0,
+    'import/no-extraneous-dependencies': 0,
+    'no-extraneous-dependencies': 0,
+    'import/no-unresolved': 0,
     'import/extensions': ['error', 'always', {
       js: 'never',
-      vue: 'never',
     }],
     'no-param-reassign': ['error', {
-      props: false
+      props: false,
     }],
     'no-plusplus': ['error', {
-      allowForLoopAfterthoughts: true
+      allowForLoopAfterthoughts: true,
     }],
   },
 };
