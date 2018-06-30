@@ -1,0 +1,10 @@
+primaryColor = #00ff00
+
+imageSize(imgPath)
+  $size = image-size(imgPath)
+  width $size[0]
+  height $size[1]
+
+bg(imgPath)
+  imageSize(imgPath)
+  background-image url(imgPath)

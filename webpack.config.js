@@ -29,10 +29,10 @@ const config = {
   resolve: {
     modules: [
       path.resolve('src'),
+      path.resolve('src/asset/'),
       path.resolve('node_modules'),
     ],
     alias: {
-      '~': path.resolve('src'),
       '@': path.resolve('src/js'),
       img: path.resolve('src/asset/img'),
     },
@@ -71,6 +71,10 @@ const config = {
           options: {
             limit: 2048,
             name: '[path][name].[ext]?[hash]',
+            /*
+            context: path.resolve('src/asset/img'),
+            useRelativePath: true,
+            outputPath: 'asset/', */
           },
         },
         exclude: /node_modules/,
@@ -112,7 +116,8 @@ const config = {
           {
             loader: 'stylus-loader',
             options: {
-              paths: 'src/css/',
+              paths: ['src/asset/'],
+              preferPathResolver: 'webpack',
               sourceMap: true,
             },
           },
@@ -226,7 +231,7 @@ if (!DEV_MODE) {
   stylusLoader.use[0] = {
     loader: MiniCssExtractPlugin.loader,
     options: {
-      publicPath: '../../',
+      // publicPath: '../../',
     },
   };
   config.plugins.push(new MiniCssExtractPlugin({
